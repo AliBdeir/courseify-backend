@@ -7,26 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static Courseify.PdfMan.Bookmarks.IPdfBookmarkService;
+using Courseify.PdfMan.Bookmarks;
 
 namespace Courseify.PdfMan.Text
 {
-    public class PdfTextService
+    public class PdfTextService : IPdfTextService
     {
-        private readonly BookmarkNode storedBookmarks;
-        private readonly PdfReader reader;
-
-        public PdfTextService(BookmarkNode storedBookmarks, PdfReader reader)
+        public PdfTextService()
         {
-            this.storedBookmarks = storedBookmarks ?? throw new ArgumentNullException(nameof(storedBookmarks));
-            this.reader = reader;
         }
-        public string ExtractTextFromChapter(int chapterId)
+        public string ExtractTextFromChapter(PdfDocument pdfDoc, int chapterId, BookmarkNode storedBookmarks)
         {
-            PdfDocument pdfDoc = new(this.reader);
-
             BookmarkNode node = storedBookmarks.FindNodeById(chapterId) ?? throw new ArgumentException("Chapter ID not found.");
-            if (node.Children.Any())
-                throw new NotALeafNodeException("The specified chapter ID does not point to a leaf node.");
             if (node.PageNumber == null) return string.Empty;
             int startPage = node.PageNumber.Value;
             int endPage;
@@ -47,8 +39,6 @@ namespace Courseify.PdfMan.Text
             {
                 extractedText.AppendLine(PdfTextExtractor.GetTextFromPage(pdfDoc.GetPage(i)));
             }
-
-            pdfDoc.Close();
 
             return extractedText.ToString();
         }

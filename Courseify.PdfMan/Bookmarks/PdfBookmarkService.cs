@@ -9,11 +9,8 @@ namespace Courseify.PdfMan.Bookmarks
         private BookmarkNode? storedBookmarks = null; // Member to store the bookmarks
         private int currentID = 1; // Start from ID 1
 
-        public BookmarkNode GetBookmarksFromPdf(string inputFilePath)
+        public BookmarkNode GetBookmarksFromPdf(PdfDocument pdfDoc)
         {
-            using PdfReader reader = new(inputFilePath);
-            PdfDocument pdfDoc = new(reader);
-
             PdfOutline rootOutline = pdfDoc.GetOutlines(false);
             IPdfNameTreeAccess destTree = pdfDoc.GetCatalog().GetNameTree(PdfName.Dests);
 
@@ -21,8 +18,6 @@ namespace Courseify.PdfMan.Bookmarks
             currentID = 1;
 
             storedBookmarks = GetBookmarks(rootOutline, destTree, pdfDoc);
-
-            pdfDoc.Close();
 
             return storedBookmarks;
         }

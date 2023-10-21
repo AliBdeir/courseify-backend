@@ -1,13 +1,18 @@
 ﻿// See https://aka.ms/new-console-template for more information
 // Input PDF 
 using Courseify.PdfMan.Bookmarks;
+using Courseify.PdfMan.Text;
+using iText.Kernel.Pdf;
 using iText.StyledXmlParser.Jsoup.Nodes;
+using System.Diagnostics;
 using static Courseify.PdfMan.Bookmarks.IPdfBookmarkService;
 
 PdfBookmarkService bookmarkService = new PdfBookmarkService();
-string PdfFilePath = "C:\\Users\\benda\\Downloads\\PHYSICS 150 BOOK.pdf";
-var bookmarkReturn = bookmarkService.GetBookmarksFromPdf(PdfFilePath);
-tabsforchildren(bookmarkReturn);
+string PdfFilePath = "C:\\Users\\MSE\\Downloads\\PHYSICS 150 BOOK.pdf";
+using PdfReader reader = new PdfReader(PdfFilePath);
+PdfDocument doc = new(reader);
+var bookmarks = bookmarkService.GetBookmarksFromPdf(doc);
+tabsforchildren(bookmarks);
 // Go trhoigh the list of nodes using a for loop 
 void tabsforchildren(BookmarkNode Node, int indentation = 0)
 {
@@ -18,3 +23,15 @@ void tabsforchildren(BookmarkNode Node, int indentation = 0)
         tabsforchildren(item, indentation + 1);
     }
 }
+
+PdfTextService textService = new PdfTextService();
+
+Console.WriteLine();
+Console.Write("Enter chapter ID: ");
+// Read the chapter ID as an integer from the console
+// int chapterId = ...;
+
+// Get the text of that chapter using textService and store it in a string
+// string text = ...;
+
+// Write this text to a file "output.txt"

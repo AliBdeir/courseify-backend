@@ -1,4 +1,6 @@
-﻿namespace Courseify.PdfMan.Bookmarks
+﻿using iText.Kernel.Pdf;
+
+namespace Courseify.PdfMan.Bookmarks
 {
     public interface IPdfBookmarkService
     {
@@ -7,7 +9,7 @@
         /// </summary>
         /// <param name="inputFilePath">The path to the PDF file</param>
         /// <returns>Dictionary with the name of each bookmark and the page it starts at</returns>
-        BookmarkNode GetBookmarksFromPdf(string inputFilePath);
+        BookmarkNode GetBookmarksFromPdf(PdfDocument pdf);
 
         public class BookmarkNode
         {
