@@ -1,11 +1,12 @@
 ﻿using iText.Kernel.Pdf;
-using System.Reflection.PortableExecutable;
+using System.Collections.Generic;
+using static Courseify.PdfMan.IPdfBookmarkService;
 
 namespace Courseify.PdfMan
 {
     public class PdfBookmarkService : IPdfBookmarkService
     {
-        public Dictionary<string, int> GetBookmarksFromPdf(string inputFilePath)
+        public BookmarkNode GetBookmarksFromPdf(string inputFilePath)
         {
             using PdfReader reader = new(inputFilePath);
             PdfDocument pdfDoc = new(reader);
@@ -19,23 +20,28 @@ namespace Courseify.PdfMan
             return bookmarks;
         }
 
-        private Dictionary<string, int> GetBookmarks(PdfOutline outline, IPdfNameTreeAccess names, PdfDocument pdfDoc)
+        private BookmarkNode GetBookmarks(PdfOutline outline, IPdfNameTreeAccess names, PdfDocument pdfDoc)
         {
-            Dictionary<string, int> bookmarks = new();
+            BookmarkNode currentNode = new()
+            {
+                Title = outline.GetTitle()
+            };
 
             if (outline.GetDestination() != null)
             {
-                var pagenum = pdfDoc.GetPageNumber((PdfDictionary)outline.GetDestination().GetDestinationPage(names));
-                bookmarks.Add(outline.GetTitle(), pagenum);
+                PdfDictionary destinationPage = (PdfDictionary)outline.GetDestination().GetDestinationPage(names);
+                if (destinationPage != null)
+                {
+                    currentNode.PageNumber = pdfDoc.GetPageNumber(destinationPage);
+                }
             }
 
             foreach (var child in outline.GetAllChildren())
             {
-                var childBookmarks = GetBookmarks(child, names, pdfDoc);
-                bookmarks = bookmarks.Union(childBookmarks).ToDictionary(k => k.Key, v => v.Value);
+                currentNode.Children.Add(GetBookmarks(child, names, pdfDoc));
             }
 
-            return bookmarks;
+            return currentNode;
         }
     }
 }
