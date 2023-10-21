@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 // Input PDF 
 using Courseify.PdfMan.Bookmarks;
+using iText.StyledXmlParser.Jsoup.Nodes;
 using static Courseify.PdfMan.Bookmarks.IPdfBookmarkService;
 
 PdfBookmarkService bookmarkService = new PdfBookmarkService();
@@ -10,7 +11,8 @@ tabsforchildren(bookmarkReturn);
 // Go trhoigh the list of nodes using a for loop 
 void tabsforchildren(BookmarkNode Node, int indentation = 0)
 {
-    Console.WriteLine(new string('\t', indentation) + Node.Title);
+    Console.WriteLine(new string('\t', indentation) + $"{Node.Title} ({Node.Id})");
+
     foreach (var item in Node.Children)
     {
         tabsforchildren(item, indentation + 1);
