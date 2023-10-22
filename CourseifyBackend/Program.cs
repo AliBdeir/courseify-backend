@@ -1,4 +1,5 @@
 using Courseify.DataAccessLayer;
+using Courseify.OpenAI;
 using Courseify.PdfMan.Bookmarks;
 using Courseify.PdfMan.Text;
 
@@ -14,12 +15,13 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ISessionDatabaseService, SessionDatabaseService>();
 builder.Services.AddScoped<IPdfTextService, PdfTextService>();
 builder.Services.AddScoped<IPdfBookmarkService, PdfBookmarkService>();
-builder.Services.AddOpenAi(settings =>
-{
-    settings.ApiKey = Environment.GetEnvironmentVariable("AzureApiKey") ?? throw new Exception("Azure api key is null");
-    settings.Azure.ResourceName = "canadaeastalibdeir";
-    settings.Azure.MapDeploymentChatModel("alibdeiropenai", Rystem.OpenAi.ChatModelType.Gpt4_32K);
-});
+builder.Services.AddScoped<IOpenAiService, OpenAiService>();
+//builder.Services.AddOpenAi(settings =>
+//{
+//    settings.ApiKey = Environment.GetEnvironmentVariable("AzureApiKey") ?? throw new Exception("Azure api key is null");
+//    settings.Azure.ResourceName = "canadaeastalibdeir";
+//    settings.Azure.MapDeploymentChatModel("alibdeiropenai", Rystem.OpenAi.ChatModelType.Gpt4_32K);
+//});
 
 var app = builder.Build();
 

@@ -6,6 +6,6 @@ namespace Courseify.DataAccessLayer
     public interface ISessionDatabaseService
     {
         Task<string> GenerateSession(BookmarkNode node);
-        Task<BookmarkNode> GetSessionNoText(string sessionId);
+        Task<BookmarkNode> GetSession(string sessionId);
     }
 }

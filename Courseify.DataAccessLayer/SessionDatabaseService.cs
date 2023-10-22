@@ -23,7 +23,7 @@ namespace Courseify.DataAccessLayer
             return result.Key;
         }
 
-        public async Task<BookmarkNode> GetSessionNoText(string sessionId)
+        public async Task<BookmarkNode> GetSession(string sessionId)
         {
             using FirebaseClient firebaseClient = GetFirebaseClient();
             return await firebaseClient.Child("Sessions")

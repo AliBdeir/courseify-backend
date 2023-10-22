@@ -26,7 +26,7 @@ namespace CourseifyBackend.Controllers
         {
             try
             {
-                BookmarkNode value = await database.GetSessionNoText(sessionId);
+                BookmarkNode value = await database.GetSession(sessionId);
                 List<SessionOverview> frontendValue = new();
                 foreach (var child in value.Children)
                 {

@@ -18,4 +18,10 @@ namespace Courseify.OpenAI.Data
         public required string ChoiceId { get; set; }
         public required string Text { get; set; }
     }
+
+    public class OpenAiQuizResult
+    {
+        public List<MultipleChoiceQuestion> quiz { get; set; }
+    }
+
 }
