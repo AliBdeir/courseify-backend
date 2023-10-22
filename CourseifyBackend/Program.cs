@@ -1,3 +1,7 @@
+using Courseify.DataAccessLayer;
+using Courseify.PdfMan.Bookmarks;
+using Courseify.PdfMan.Text;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +10,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<ISessionDatabaseService, SessionDatabaseService>();
+builder.Services.AddScoped<IPdfTextService, PdfTextService>();
+builder.Services.AddScoped<IPdfBookmarkService, PdfBookmarkService>();
 
 var app = builder.Build();
 

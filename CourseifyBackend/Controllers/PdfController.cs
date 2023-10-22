@@ -35,7 +35,7 @@ namespace CourseifyBackend.Controllers
             }            
             using var reader = new PdfReader(file.OpenReadStream());
             var document = new PdfDocument(reader);
-            BookmarkNodeWithText bookmarks = (BookmarkNodeWithText)bookmarkService.GetBookmarksFromPdf(document, true);
+            BookmarkNode bookmarks = bookmarkService.GetBookmarksFromPdf(document, true);
             string sessionId = await database.GenerateSession(bookmarks);
             return Ok(sessionId);            
         }

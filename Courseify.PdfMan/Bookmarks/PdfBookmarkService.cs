@@ -7,7 +7,6 @@ namespace Courseify.PdfMan.Bookmarks
     public class PdfBookmarkService : IPdfBookmarkService
     {
         private readonly IPdfTextService? textService;
-        private BookmarkNode? storedBookmarks = null; // Member to store the bookmarks
         private int currentID = 1; // Start from ID 1
 
         public PdfBookmarkService(IPdfTextService? textService)
@@ -27,9 +26,9 @@ namespace Courseify.PdfMan.Bookmarks
             // Resetting the ID for each new PDF
             currentID = 1;
 
-            storedBookmarks = GetBookmarks(rootOutline, destTree, pdfDoc, includeText);
+            BookmarkNode result = GetBookmarks(rootOutline, destTree, pdfDoc, includeText);
 
-            return storedBookmarks;
+            return result;
         }
 
         private BookmarkNode GetBookmarks(PdfOutline root, IPdfNameTreeAccess names, PdfDocument pdfDoc, bool includeText)
@@ -45,11 +44,15 @@ namespace Courseify.PdfMan.Bookmarks
                 PdfDictionary destinationPage = (PdfDictionary)root.GetDestination().GetDestinationPage(names);
                 if (destinationPage != null)
                 {
-                    currentNode.PageNumber = pdfDoc.GetPageNumber(destinationPage);
+                    currentNode.PageNumber = pdfDoc.GetPageNumber(destinationPage);                    
                     if (includeText && currentNode.PageNumber.HasValue)
                     {
+                        if (textService == null)
+                        {
+                            throw new Exception("IPdfTextService must be provided if extracting text");
+                        }
                         string text = textService.ExtractTextFromPage(pdfDoc, currentNode.PageNumber.Value);
-                        currentNode = new BookmarkNodeWithText(currentNode, text);
+                        currentNode.Text = text;
                     }
                 }
             }

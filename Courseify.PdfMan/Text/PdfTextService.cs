@@ -49,15 +49,15 @@ namespace Courseify.PdfMan.Text
             return PdfTextExtractor.GetTextFromPage(pdfDoc.GetPage(pageNumber));
         }
 
-        public string ExtractTextFromBookmarkNodes(BookmarkNodeWithText node)
+        public string ExtractTextFromBookmarkNodes(BookmarkNode node)
         {
             StringBuilder text = new();
-            void AddChildrenToText(BookmarkNodeWithText parent)
+            void AddChildrenToText(BookmarkNode parent)
             {
                 text.AppendLine(parent.Text);
                 foreach (BookmarkNode item in parent!.Children)
                 {
-                    AddChildrenToText((BookmarkNodeWithText)item);
+                    AddChildrenToText((BookmarkNode)item);
                 }
             }
             AddChildrenToText(node);

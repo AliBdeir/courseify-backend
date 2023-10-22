@@ -44,14 +44,14 @@ while (!int.TryParse(Console.ReadLine(), out chapterId))
 // string text = ...;
 
 var node =
-     ((BookmarkNodeWithText)bookmarks.FindNodeById(chapterId)!);
+     ((BookmarkNode)bookmarks.FindNodeById(chapterId)!);
 StringBuilder text = new();
-void AddChildrenToText(BookmarkNodeWithText parent)
+void AddChildrenToText(BookmarkNode parent)
 {
     text.AppendLine(parent.Text);
     foreach (BookmarkNode item in parent!.Children)
     {
-        AddChildrenToText((BookmarkNodeWithText)item);
+        AddChildrenToText((BookmarkNode)item);
     }
 }
 

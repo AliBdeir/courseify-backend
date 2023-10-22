@@ -10,6 +10,7 @@ public class BookmarkNode
     public required int Id { get; set; }
     public required string Title { get; set; }
     public int? PageNumber { get; set; }
+    public string? Text { get; set; }
     public List<BookmarkNode> Children { get; set; } = new List<BookmarkNode>();
 
     public BookmarkNode? GetNextSibling(BookmarkNode root)

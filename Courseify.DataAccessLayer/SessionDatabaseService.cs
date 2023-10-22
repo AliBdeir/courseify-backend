@@ -1,4 +1,5 @@
-﻿using Courseify.PdfMan.Bookmarks.Data;
+﻿using Courseify.DataAccessLayer.Exceptions;
+using Courseify.PdfMan.Bookmarks.Data;
 using Firebase.Database;
 using Firebase.Database.Query;
 
@@ -14,13 +15,22 @@ namespace Courseify.DataAccessLayer
             appSecret = Environment.GetEnvironmentVariable("Firebase_Secret") ?? throw new Exception("Firebase secret not found");
         }
 
-        public async Task<string> GenerateSession(BookmarkNodeWithText node)
+        public async Task<string> GenerateSession(BookmarkNode node)
         {
             using FirebaseClient firebaseClient = GetFirebaseClient();
-            FirebaseObject<BookmarkNodeWithText> result = await firebaseClient.Child("Sessions")
+            FirebaseObject<BookmarkNode> result = await firebaseClient.Child("Sessions")
                 .PostAsync(node);
             return result.Key;
         }
+
+        public async Task<BookmarkNode> GetSessionNoText(string sessionId)
+        {
+            using FirebaseClient firebaseClient = GetFirebaseClient();
+            return await firebaseClient.Child("Sessions")
+                .Child(sessionId)
+                .OnceSingleAsync<BookmarkNode>() ?? throw new InvalidSessionIdException(sessionId);
+        }
+
 
         private FirebaseClient GetFirebaseClient()
         {
