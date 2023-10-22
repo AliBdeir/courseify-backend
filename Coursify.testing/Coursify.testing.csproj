@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Courseify.DataAccessLayer\Courseify.DataAccessLayer.csproj" />
     <ProjectReference Include="..\Courseify.PdfMan\Courseify.PdfMan.csproj" />
   </ItemGroup>
 
