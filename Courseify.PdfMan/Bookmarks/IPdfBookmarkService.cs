@@ -18,9 +18,9 @@ namespace Courseify.PdfMan.Bookmarks
             public int? PageNumber { get; set; }
             public List<BookmarkNode> Children { get; set; } = new List<BookmarkNode>();
 
-            public BookmarkNode? GetNextSibling()
+            public BookmarkNode? GetNextSibling(BookmarkNode root)
             {
-                BookmarkNode? parent = GetParent();
+                BookmarkNode? parent = GetParent(root);
                 if (parent == null)
                     return null;  // This is the root node or an orphaned node
 
@@ -36,11 +36,8 @@ namespace Courseify.PdfMan.Bookmarks
                 return null;
             }
 
-            public BookmarkNode? GetParent(BookmarkNode? root = null)
+            public BookmarkNode? GetParent(BookmarkNode root)
             {
-                if (root == null)
-                    return null;
-
                 if (root.Children.Contains(this))
                     return root;
 

@@ -1,42 +1,48 @@
-﻿//// See https://aka.ms/new-console-template for more information
-//// Input PDF 
-//using Courseify.PdfMan.Bookmarks;
-//using Courseify.PdfMan.Text;
-//using iText.Kernel.Pdf;
-//using iText.StyledXmlParser.Jsoup.Nodes;
-//using System.Diagnostics;
-//using static Courseify.PdfMan.Bookmarks.IPdfBookmarkService;
+﻿// See https://aka.ms/new-console-template for more information
+// Input PDF 
+using Courseify.PdfMan.Bookmarks;
+using Courseify.PdfMan.Text;
+using iText.Kernel.Pdf;
+using iText.StyledXmlParser.Jsoup.Nodes;
+using System.Diagnostics;
+using static Courseify.PdfMan.Bookmarks.IPdfBookmarkService;
 
-//PdfBookmarkService bookmarkService = new PdfBookmarkService();
-//string PdfFilePath = "C:\\Users\\MSE\\Downloads\\PHYSICS 150 BOOK.pdf";
-//using PdfReader reader = new PdfReader(PdfFilePath);
-//PdfDocument doc = new(reader);
-//var bookmarks = bookmarkService.GetBookmarksFromPdf(doc);
-//tabsforchildren(bookmarks);
-//// Go trhoigh the list of nodes using a for loop 
-//void tabsforchildren(BookmarkNode Node, int indentation = 0)
-//{
-//    Console.WriteLine(new string('\t', indentation) + $"{Node.Title} ({Node.Id})");
+PdfBookmarkService bookmarkService = new PdfBookmarkService();
+string PdfFilePath = "C:\\Users\\MSE\\Downloads\\PHYSICS 150 BOOK.pdf";
+using PdfReader reader = new PdfReader(PdfFilePath);
+PdfDocument doc = new(reader);
+var bookmarks = bookmarkService.GetBookmarksFromPdf(doc);
+tabsforchildren(bookmarks);
+// Go trhoigh the list of nodes using a for loop 
+void tabsforchildren(BookmarkNode Node, int indentation = 0)
+{
+    Console.WriteLine(new string('\t', indentation) + $"{Node.Title} ({Node.Id})");
 
-//    foreach (var item in Node.Children)
-//    {
-//        tabsforchildren(item, indentation + 1);
-//    }
-//}
+    foreach (var item in Node.Children)
+    {
+        tabsforchildren(item, indentation + 1);
+    }
+}
 
-//PdfTextService textService = new PdfTextService();
+PdfTextService textService = new PdfTextService();
 
-//Console.WriteLine();
-//Console.Write("Enter chapter ID: ");
-//// Read the chapter ID as an integer from the console
-//// int chapterId = ...;
+Console.WriteLine();
+Console.Write("Enter chapter ID: ");
+// Read the chapter ID as an integer from the console
+// int chapterId = ...;
 
-//// Get the text of that chapter using textService and store it in a string
-//// string text = ...;
+int chapterId;
+while (!int.TryParse(Console.ReadLine(), out chapterId))
+{
+    Console.WriteLine("Invalid Try again");
+}
 
-//// Write this text to a file "output.txt"
 
-using Courseify.DataAccessLayer;
+// Get the text of that chapter using textService and store it in a string
+// string text = ...;
 
-SessionDatabaseService service = new();
-await service.GenerateSession(null!);
+string text = textService.ExtractTextFromChapter(doc,chapterId,bookmarks);
+
+// Write this text to a file "output.txt"
+File.WriteAllText("output.txt", text);
+Console.WriteLine("Text has been written to output.txt");

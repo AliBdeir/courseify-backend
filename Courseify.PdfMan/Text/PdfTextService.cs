@@ -23,7 +23,7 @@ namespace Courseify.PdfMan.Text
             int startPage = node.PageNumber.Value;
             int endPage;
 
-            var nextNode = node.GetNextSibling();
+            var nextNode = node.GetNextSibling(storedBookmarks);
             if (nextNode?.PageNumber != null)
             {
                 endPage = nextNode.PageNumber.Value;
