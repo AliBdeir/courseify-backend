@@ -1,17 +1,20 @@
 ﻿// See https://aka.ms/new-console-template for more information
 // Input PDF 
 using Courseify.PdfMan.Bookmarks;
+using Courseify.PdfMan.Bookmarks.Data;
 using Courseify.PdfMan.Text;
 using iText.Kernel.Pdf;
 using iText.StyledXmlParser.Jsoup.Nodes;
 using System.Diagnostics;
+using System.Text;
 using static Courseify.PdfMan.Bookmarks.IPdfBookmarkService;
 
-PdfBookmarkService bookmarkService = new PdfBookmarkService();
+IPdfTextService textService = new PdfTextService();
+PdfBookmarkService bookmarkService = new PdfBookmarkService(textService);
 string PdfFilePath = "C:\\Users\\MSE\\Downloads\\PHYSICS 150 BOOK.pdf";
 using PdfReader reader = new PdfReader(PdfFilePath);
 PdfDocument doc = new(reader);
-var bookmarks = bookmarkService.GetBookmarksFromPdf(doc);
+var bookmarks = bookmarkService.GetBookmarksFromPdf(doc, true);
 tabsforchildren(bookmarks);
 // Go trhoigh the list of nodes using a for loop 
 void tabsforchildren(BookmarkNode Node, int indentation = 0)
@@ -24,7 +27,6 @@ void tabsforchildren(BookmarkNode Node, int indentation = 0)
     }
 }
 
-PdfTextService textService = new PdfTextService();
 
 Console.WriteLine();
 Console.Write("Enter chapter ID: ");
@@ -41,8 +43,19 @@ while (!int.TryParse(Console.ReadLine(), out chapterId))
 // Get the text of that chapter using textService and store it in a string
 // string text = ...;
 
-string text = textService.ExtractTextFromChapter(doc,chapterId,bookmarks);
+var node =
+     ((BookmarkNodeWithText)bookmarks.FindNodeById(chapterId)!);
+StringBuilder text = new();
+void AddChildrenToText(BookmarkNodeWithText parent)
+{
+    text.AppendLine(parent.Text);
+    foreach (BookmarkNode item in parent!.Children)
+    {
+        AddChildrenToText((BookmarkNodeWithText)item);
+    }
+}
 
+AddChildrenToText(node);
 // Write this text to a file "output.txt"
-File.WriteAllText("output.txt", text);
+File.WriteAllText("output.txt", text.ToString());
 Console.WriteLine("Text has been written to output.txt");

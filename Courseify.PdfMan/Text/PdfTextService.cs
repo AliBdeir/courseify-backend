@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static Courseify.PdfMan.Bookmarks.IPdfBookmarkService;
-using Courseify.PdfMan.Bookmarks;
+using Courseify.PdfMan.Bookmarks.Data;
 
 namespace Courseify.PdfMan.Text
 {
@@ -20,6 +20,7 @@ namespace Courseify.PdfMan.Text
         {
             BookmarkNode node = storedBookmarks.FindNodeById(chapterId) ?? throw new ArgumentException("Chapter ID not found.");
             if (node.PageNumber == null) return string.Empty;
+
             int startPage = node.PageNumber.Value;
             int endPage;
 
@@ -37,10 +38,30 @@ namespace Courseify.PdfMan.Text
             StringBuilder extractedText = new();
             for (int i = startPage; i < endPage; i++)
             {
-                extractedText.AppendLine(PdfTextExtractor.GetTextFromPage(pdfDoc.GetPage(i)));
+                extractedText.AppendLine(ExtractTextFromPage(pdfDoc, i));
             }
 
             return extractedText.ToString();
+        }
+
+        public string ExtractTextFromPage(PdfDocument pdfDoc, int pageNumber)
+        {
+            return PdfTextExtractor.GetTextFromPage(pdfDoc.GetPage(pageNumber));
+        }
+
+        public string ExtractTextFromBookmarkNodes(BookmarkNodeWithText node)
+        {
+            StringBuilder text = new();
+            void AddChildrenToText(BookmarkNodeWithText parent)
+            {
+                text.AppendLine(parent.Text);
+                foreach (BookmarkNode item in parent!.Children)
+                {
+                    AddChildrenToText((BookmarkNodeWithText)item);
+                }
+            }
+            AddChildrenToText(node);
+            return text.ToString();
         }
 
     }
