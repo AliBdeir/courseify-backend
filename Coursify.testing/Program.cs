@@ -8,7 +8,7 @@ using System.Diagnostics;
 using static Courseify.PdfMan.Bookmarks.IPdfBookmarkService;
 
 PdfBookmarkService bookmarkService = new PdfBookmarkService();
-string PdfFilePath = "C:\\Users\\MSE\\Downloads\\PHYSICS 150 BOOK.pdf";
+string PdfFilePath = "C:\\Users\\benda\\Downloads\\PHYSICS 150 BOOK.pdf";
 using PdfReader reader = new PdfReader(PdfFilePath);
 PdfDocument doc = new(reader);
 var bookmarks = bookmarkService.GetBookmarksFromPdf(doc);
@@ -31,7 +31,18 @@ Console.Write("Enter chapter ID: ");
 // Read the chapter ID as an integer from the console
 // int chapterId = ...;
 
+int chapterId;
+while (!int.TryParse(Console.ReadLine(), out chapterId))
+{
+    Console.WriteLine("Invalid Try again");
+}
+
+
 // Get the text of that chapter using textService and store it in a string
 // string text = ...;
 
+string text = textService.ExtractTextFromChapter(doc,chapterId,bookmarks);
+
 // Write this text to a file "output.txt"
+File.WriteAllText("output.txt", text);
+Console.WriteLine("Text has been written to output.txt");
