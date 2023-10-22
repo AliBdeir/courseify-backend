@@ -1,6 +1,6 @@
 ﻿using Courseify.DataAccessLayer;
 using Courseify.DataAccessLayer.Exceptions;
-using Courseify.OpenAI;
+using Courseify.OpenAI.Quiz;
 using Courseify.PdfMan.Text;
 using iText.Kernel.Pdf.Canvas.Parser.Listener;
 using Microsoft.AspNetCore.Http;
@@ -13,9 +13,9 @@ namespace CourseifyBackend.Controllers
     public class QuizController : ControllerBase
     {
         private readonly ISessionDatabaseService service;
-        private readonly IOpenAiService openai;
+        private readonly IQuizOpenAiService openai;
 
-        public QuizController(ISessionDatabaseService service, IOpenAiService openai)
+        public QuizController(ISessionDatabaseService service, IQuizOpenAiService openai)
         {
             this.service = service;
             this.openai = openai;

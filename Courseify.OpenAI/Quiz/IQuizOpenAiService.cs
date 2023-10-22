@@ -1,9 +1,9 @@
 ﻿using Azure.AI.OpenAI;
 using Courseify.OpenAI.Data;
 
-namespace Courseify.OpenAI
+namespace Courseify.OpenAI.Quiz
 {
-    public interface IOpenAiService
+    public interface IQuizOpenAiService
     {
         Task<List<MultipleChoiceQuestion>> GetQuizzes(string context);
         FunctionDefinition QuizDef();

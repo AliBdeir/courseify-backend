@@ -59,6 +59,7 @@
 //// Write this text to a file "output.txt"
 //File.WriteAllText("output.txt", text.ToString());
 //Console.WriteLine("Text has been written to output.txt");
+using Courseify.OpenAI.Quiz;
 using Rystem.OpenAi;
 
 string text = @"
@@ -1553,5 +1554,5 @@ V (V)
 //    settings.UseVersionForChat("")
 //});
 
-Courseify.OpenAI.OpenAiService service = new(OpenAiService.Factory);
+QuizOpenAiService service = new(OpenAiService.Factory);
 await service.GetQuizzes(text);

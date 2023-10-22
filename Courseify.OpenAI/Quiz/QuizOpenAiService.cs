@@ -7,11 +7,11 @@ using System.Text.Json.Serialization;
 using System.Text.Json;
 using Courseify.OpenAI.Data;
 
-namespace Courseify.OpenAI
+namespace Courseify.OpenAI.Quiz
 {
-    public class OpenAiService : IOpenAiService
+    public class QuizOpenAiService : IQuizOpenAiService
     {
-        public OpenAiService()
+        public QuizOpenAiService()
         {
         }
 
@@ -37,7 +37,7 @@ namespace Courseify.OpenAI
             {
                 PropertyNameCaseInsensitive = true,
             };
-            
+
             return JsonSerializer.Deserialize<OpenAiQuizResult>(response.Value.Choices[0].Message.Content, options)!.quiz;
 
         }
