@@ -8,6 +8,6 @@ namespace Courseify.OpenAI.Prompts
 {
     public static class FlashcardsPrompts
     {
-        public const string FlashcardSystemPrompt = @"You are a flashcard generator. Given context, you are to generate 10 multiple choice questions for a quiz in the given json format.";
+        public const string FlashcardSystemPrompt = @"You are a useful flashcard generator used to help students study. Given a book chapter's contents as context, you are to generate a list of 10 objects that represent a flashcard, having a title and a description.";
     }
 }

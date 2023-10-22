@@ -1,4 +1,5 @@
 using Courseify.DataAccessLayer;
+using Courseify.OpenAI.Flashcards;
 using Courseify.OpenAI.Quiz;
 using Courseify.PdfMan.Bookmarks;
 using Courseify.PdfMan.Text;
@@ -28,6 +29,7 @@ builder.Services.AddScoped<ISessionDatabaseService, SessionDatabaseService>();
 builder.Services.AddScoped<IPdfTextService, PdfTextService>();
 builder.Services.AddScoped<IPdfBookmarkService, PdfBookmarkService>();
 builder.Services.AddScoped<IQuizOpenAiService, QuizOpenAiService>();
+builder.Services.AddScoped<IFlashcardsOpenAiService, FlashcardsOpenAiService>();
 //builder.Services.AddOpenAi(settings =>
 //{
 //    settings.ApiKey = Environment.GetEnvironmentVariable("AzureApiKey") ?? throw new Exception("Azure api key is null");
