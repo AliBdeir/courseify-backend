@@ -13,9 +13,9 @@ namespace CourseifyBackend.Controllers
     public class QuizController : ControllerBase
     {
         private readonly ISessionDatabaseService service;
-        private readonly IQuizOpenAiService openai;
+        private readonly IQuizOpenIService openai;
 
-        public QuizController(ISessionDatabaseService service, IQuizOpenAiService openai)
+        public QuizController(ISessionDatabaseService service, IQuizOpenIService openai)
         {
             this.service = service;
             this.openai = openai;
@@ -26,7 +26,7 @@ namespace CourseifyBackend.Controllers
         {
             var session = await service.GetSession(sessionId) ?? throw new InvalidSessionIdException(sessionId);
             string text = session.FindNodeById(chapterId)?.Text! ?? "";
-            var quizzes = await openai.GetQuizzes(text);
+            var quizzes = await openai.GetAssignment(text);
             return Ok(quizzes);
         }
     }

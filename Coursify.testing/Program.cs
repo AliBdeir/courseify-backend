@@ -1555,4 +1555,4 @@ V (V)
 //});
 
 QuizOpenAiService service = new(OpenAiService.Factory);
-await service.GetQuizzes(text);
+await service.GetAssignment(text);

@@ -9,13 +9,13 @@ using Courseify.OpenAI.Data;
 
 namespace Courseify.OpenAI.Quiz
 {
-    public class QuizOpenAiService : IQuizOpenAiService
+    public class QuizOpenAiService : IQuizOpenIService
     {
         public QuizOpenAiService()
         {
         }
 
-        public async Task<List<MultipleChoiceQuestion>> GetQuizzes(string context)
+        public async Task<List<MultipleChoiceQuestion>> GetAssignment(string context)
         {
             OpenAIClient client = new OpenAIClient(new Uri("https://canadaeastalibdeir.openai.azure.com/"), new AzureKeyCredential(Environment.GetEnvironmentVariable("AzureApiKey") ?? throw new Exception("Azure api key is null")));
             var conversationMessages = new List<ChatMessage>()

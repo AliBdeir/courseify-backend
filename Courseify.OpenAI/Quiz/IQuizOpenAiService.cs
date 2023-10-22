@@ -3,9 +3,9 @@ using Courseify.OpenAI.Data;
 
 namespace Courseify.OpenAI.Quiz
 {
-    public interface IQuizOpenAiService
+    public interface IQuizOpenIService
     {
-        Task<List<MultipleChoiceQuestion>> GetQuizzes(string context);
+        Task<List<MultipleChoiceQuestion>> GetAssignment(string context);
         FunctionDefinition QuizDef();
     }
 }

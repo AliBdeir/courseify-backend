@@ -27,5 +27,6 @@ namespace CourseifyBackend.Controllers
             var quizzes = await openai.GetFlashcards(text);
             return Ok(quizzes);
         }
+
     }
 }
