@@ -11,6 +11,7 @@ namespace Courseify.OpenAI.Data
         public int SetId { get; set; }
         public required List<Option> Options { get; set; }
         public required string CorrectChoiceId { get; set; }
+        public string Question { get; set; }
     }
 
     public class Option

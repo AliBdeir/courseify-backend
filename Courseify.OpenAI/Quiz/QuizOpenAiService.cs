@@ -67,6 +67,11 @@ namespace Courseify.OpenAI.Quiz
                             Type = "integer",
                             Description = "The unique identifier for the question set",
                         },
+                        Question =  new
+                        {
+                            Type = "string",
+                            Description = "The question which will have multiple choices"
+                        },
                         Options = new
                         {
                             Type = "array",
