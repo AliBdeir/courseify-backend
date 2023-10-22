@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Courseify.PdfMan", "Coursei
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Coursify.testing", "Coursify.testing\Coursify.testing.csproj", "{E8D6CD87-1256-49A7-96AE-AA28DFAE4CEB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Courseify.DataAccessLayer", "Courseify.DataAccessLayer\Courseify.DataAccessLayer.csproj", "{0E5DBBC6-0806-480C-8C88-5BC2B1785A67}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Courseify.DataAccessLayer", "Courseify.DataAccessLayer\Courseify.DataAccessLayer.csproj", "{0E5DBBC6-0806-480C-8C88-5BC2B1785A67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Courseify.OpenAI", "Courseify.OpenAI\Courseify.OpenAI.csproj", "{1965DE2E-7522-4DF7-9ABB-E03DB47B76E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{0E5DBBC6-0806-480C-8C88-5BC2B1785A67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E5DBBC6-0806-480C-8C88-5BC2B1785A67}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E5DBBC6-0806-480C-8C88-5BC2B1785A67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1965DE2E-7522-4DF7-9ABB-E03DB47B76E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1965DE2E-7522-4DF7-9ABB-E03DB47B76E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1965DE2E-7522-4DF7-9ABB-E03DB47B76E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1965DE2E-7522-4DF7-9ABB-E03DB47B76E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
