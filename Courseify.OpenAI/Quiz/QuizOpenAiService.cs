@@ -47,7 +47,7 @@ namespace Courseify.OpenAI.Quiz
             return new FunctionDefinition()
             {
                 Name = "get_multiple_choice_questions",
-                Description = "Retrieve an array containing 10 sets of multiple-choice questions",
+                Description = "Retrieve an array containing 7 sets of multiple-choice questions",
                 Parameters = BinaryData.FromObjectAsJson(
     new
     {
