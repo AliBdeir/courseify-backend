@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Courseify.PdfMan.Bookmarks.Data;
 public class BookmarkNode
 {
-    public required int Id { get; set; }
+    public required Guid Id { get; set; }
     public required string Title { get; set; }
     public int? PageNumber { get; set; }
     public string? Text { get; set; }
@@ -46,7 +46,7 @@ public class BookmarkNode
         return null;
     }
 
-    public BookmarkNode? FindNodeById(int id)
+    public BookmarkNode? FindNodeById(Guid id)
     {
         if (Id == id)
             return this;

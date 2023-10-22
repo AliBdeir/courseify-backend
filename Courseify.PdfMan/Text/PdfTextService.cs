@@ -16,7 +16,7 @@ namespace Courseify.PdfMan.Text
         public PdfTextService()
         {
         }
-        public string ExtractTextFromChapter(PdfDocument pdfDoc, int chapterId, BookmarkNode storedBookmarks)
+        public string ExtractTextFromChapter(PdfDocument pdfDoc, Guid chapterId, BookmarkNode storedBookmarks)
         {
             BookmarkNode node = storedBookmarks.FindNodeById(chapterId) ?? throw new ArgumentException("Chapter ID not found.");
             if (node.PageNumber == null) return string.Empty;

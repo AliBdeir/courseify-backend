@@ -7,7 +7,6 @@ namespace Courseify.PdfMan.Bookmarks
     public class PdfBookmarkService : IPdfBookmarkService
     {
         private readonly IPdfTextService? textService;
-        private int currentID = 1; // Start from ID 1
 
         public PdfBookmarkService(IPdfTextService? textService)
         {
@@ -23,9 +22,6 @@ namespace Courseify.PdfMan.Bookmarks
             PdfOutline rootOutline = pdfDoc.GetOutlines(false);
             IPdfNameTreeAccess destTree = pdfDoc.GetCatalog().GetNameTree(PdfName.Dests);
 
-            // Resetting the ID for each new PDF
-            currentID = 1;
-
             BookmarkNode result = GetBookmarks(rootOutline, destTree, pdfDoc, includeText);
 
             return result;
@@ -35,7 +31,7 @@ namespace Courseify.PdfMan.Bookmarks
         {
             BookmarkNode currentNode = new()
             {
-                Id = currentID++, // Assign the current ID and then increment it
+                Id = Guid.NewGuid(), // Assign the current ID and then increment it
                 Title = root.GetTitle(),
             };
 
